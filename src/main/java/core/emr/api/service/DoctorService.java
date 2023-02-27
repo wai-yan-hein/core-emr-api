@@ -11,4 +11,5 @@ public interface DoctorService {
     Mono<Doctor> findById(String id);
     Flux<Doctor> findAll();
 
+    Mono<Doctor> delete();
 }

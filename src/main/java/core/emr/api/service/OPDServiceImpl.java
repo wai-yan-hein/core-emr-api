@@ -1,34 +1,33 @@
 package core.emr.api.service;
 
 import core.emr.api.document.Doctor;
-import core.emr.api.repo.DoctorRepo;
+import core.emr.api.document.OPD;
+import core.emr.api.repo.OPDRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
+@Slf4j
 @Service
-public class DoctorServiceImpl implements DoctorService {
+public class OPDServiceImpl implements OPDService{
     @Autowired
-    private DoctorRepo repo;
-
+    private OPDRepo repo;
     @Override
-    public Mono<Doctor> save(Doctor doctor) {
-        return repo.save(doctor);
+    public Mono<OPD> save(OPD opd) {
+        log.info("saved.");
+        return repo.save(opd);
     }
 
     @Override
-    public Mono<Doctor> findById(String id) {
+    public Mono<OPD> findById(String id) {
         return repo.findById(id);
     }
 
     @Override
-    public Flux<Doctor> findAll() {
+    public Flux<OPD> findAll() {
         return repo.findAll();
     }
 
-    @Override
-    public Mono<Doctor> delete() {
-        return null;
-    }
+
 }
