@@ -1,18 +1,24 @@
 package core.emr.api.controller;
 
 import core.emr.api.document.Doctor;
+import core.emr.api.document.MedTerms;
 import core.emr.api.repo.DoctorRepo;
 import core.emr.api.service.DoctorService;
+import core.emr.api.service.MedTermsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
+
+
 
     @GetMapping(path = "/get-number")
     public Flux<Integer> getNumber() {
@@ -33,4 +39,6 @@ public class DoctorController {
     public Mono<Doctor> findById(@RequestParam String doctorId) {
         return doctorService.findById(doctorId);
     }
+
+
 }
