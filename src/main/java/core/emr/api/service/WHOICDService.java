@@ -8,7 +8,7 @@ public interface WHOICDService {
     Mono<WHOICDData> save(WHOICDData doctor);
     Mono<WHOICDData> findById(String id);
 
-    Flux<WHOICDData> findByDesc(String desc);
+    Flux<WHOICDData> findByCodeAndDesceng(String desc);
     Flux<WHOICDData> findAll();
 
     Mono<WHOICDData> delete();

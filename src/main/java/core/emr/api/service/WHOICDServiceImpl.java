@@ -1,5 +1,6 @@
 package core.emr.api.service;
 
+import core.emr.api.document.MedTerms;
 import core.emr.api.document.WHOICDData;
 import core.emr.api.repo.WHOICDRepo;
 import org.apache.commons.csv.CSVFormat;
@@ -35,13 +36,15 @@ public class WHOICDServiceImpl implements WHOICDService {
     }
 
     @Override
-    public Flux<WHOICDData> findByDesc(String desc) {
-        return null;
+    public Flux<WHOICDData> findByCodeAndDesceng(String desc) {
+        Flux<WHOICDData> whoicdDataFlux = findAll();
+        return whoicdDataFlux.filter(
+                des-> des.getDescEng().startsWith(desc) || des.getCode().startsWith(desc));
     }
 
     @Override
     public Flux<WHOICDData> findAll() {
-        return null;
+        return whoicdRepo.findAll();
     }
 
     @Override
@@ -66,8 +69,8 @@ public class WHOICDServiceImpl implements WHOICDService {
                 String desc_eng = record.get("Description").toString();
                 WHOICDData whoicdData = new WHOICDData();
                 whoicdData.setCode(code);
-                whoicdData.setDesc_eng(desc_eng);
-                whoicdData.setDesc_myan("");
+                whoicdData.setDescEng(desc_eng);
+                whoicdData.setDescMyan("");
                 save(whoicdData).log().subscribe();
 //                System.out.println(record.get("Description").toString() + record.get("ICD9Code").toString());
             }
@@ -96,8 +99,8 @@ public class WHOICDServiceImpl implements WHOICDService {
                 String desc_eng = fields[0];
                 WHOICDData whoicdData = new WHOICDData();
                 whoicdData.setCode(code);
-                whoicdData.setDesc_eng(desc_eng);
-                whoicdData.setDesc_myan("");
+                whoicdData.setDescEng(desc_eng);
+                whoicdData.setDescMyan("");
                 save(whoicdData).log().subscribe();
             }
             br.close();

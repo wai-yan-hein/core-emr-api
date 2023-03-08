@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Document("who_icd_data")
 public class WHOICDData {
-    String code;
-    String desc_eng;
-    String desc_myan;
+    private String code;
+    private String descEng;
+    private String descMyan;
 
 }
