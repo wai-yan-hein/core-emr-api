@@ -5,6 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public interface MedTermsService {
     Mono<MedTerms> save(MedTerms doctor);
@@ -15,5 +16,5 @@ public interface MedTermsService {
 
     Mono<MedTerms> delete();
 
-    boolean saveAll() throws IOException;
+    void saveMedTerms(InputStream file);
 }

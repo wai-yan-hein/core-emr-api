@@ -1,8 +1,11 @@
 package core.emr.api.service;
 
 import core.emr.api.document.WHOICDData;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.io.InputStream;
 
 public interface WHOICDService {
     Mono<WHOICDData> save(WHOICDData doctor);
@@ -13,5 +16,5 @@ public interface WHOICDService {
 
     Mono<WHOICDData> delete();
 
-    boolean saveAllWHOICDData();
+    void saveWHOICDData(InputStream file);
 }

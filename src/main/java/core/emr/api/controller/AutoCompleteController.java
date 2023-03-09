@@ -7,36 +7,25 @@ import core.emr.api.repo.WHOICDRepo;
 import core.emr.api.service.MedTermsService;
 import core.emr.api.service.WHOICDService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.http.codec.multipart.FilePart;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
-@RequestMapping("autoComplete")
+@RequestMapping("/autoComplete")
 public class AutoCompleteController {
-    @Autowired
-    private MedTermsService medTermsService;
     private final MedTermsRepo medTermsRepo;
-
+    private final WHOICDRepo whoicdRepo;
     public AutoCompleteController(MedTermsRepo medTermsRepo, WHOICDRepo whoicdRepo) {
         this.medTermsRepo = medTermsRepo;
         this.whoicdRepo = whoicdRepo;
-    }
-    @Autowired
-    WHOICDService whoicdService;
-    private final WHOICDRepo whoicdRepo;
-
-    @GetMapping(path = "/saveMedTerms")
-    public boolean saveMedTerms() {
-        try {
-            return medTermsService.saveAll();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @GetMapping("/medTermsAutoComplete")
@@ -44,12 +33,6 @@ public class AutoCompleteController {
         return medTermsRepo.findByDescStartingWithIgnoreCase(input)
                 .map(MedTerms::getDesc)
                 .log();
-    }
-    @GetMapping(path = "/saveWHOICDData")
-    public boolean saveWHOICDData()
-    {
-
-        return whoicdService.saveAllWHOICDData();
     }
 
     @GetMapping("/whoIcdAutoComplete")

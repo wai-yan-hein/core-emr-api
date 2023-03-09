@@ -1,6 +1,8 @@
 package core.emr.api.service;
 
+import core.emr.api.common.Util1;
 import core.emr.api.document.MedTerms;
+import core.emr.api.document.WHOICDData;
 import core.emr.api.repo.MedTermsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -8,9 +10,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -48,29 +48,22 @@ public class MedTermsServiceImpl implements MedTermsService {
         return null;
     }
 
-    @Override
-    public boolean saveAll() {
-        List<MedTerms> list = new ArrayList<>();
-        BufferedReader reader;
+    public void saveMedTerms(InputStream is) {
+        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        ) {
 
-        try {
-            String path = env.getProperty("medTermsFilePath");
-            reader = new BufferedReader(new FileReader(path));
-            String line = reader.readLine();
-
+            String line = fileReader.readLine();
+            List<MedTerms> medTermsList = new ArrayList<>();
             while (line != null) {
                 // read next line
-                line = reader.readLine();
-                MedTerms medTermsTemp = new MedTerms();
-                medTermsTemp.setDesc(line);
-                save(medTermsTemp).log().subscribe();
+                line = fileReader.readLine();
+                MedTerms medTerms = new MedTerms();
+                medTerms.setDesc(line);
+                save(medTerms).log().subscribe();
+//                medTermsList.add(medTerms);
             }
-
-            reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
         }
-
-        return true;
     }
 }
