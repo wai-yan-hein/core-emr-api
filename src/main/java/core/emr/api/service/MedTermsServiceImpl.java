@@ -1,8 +1,6 @@
 package core.emr.api.service;
 
-import core.emr.api.common.Util1;
 import core.emr.api.document.MedTerms;
-import core.emr.api.document.WHOICDData;
 import core.emr.api.repo.MedTermsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -10,9 +8,10 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 

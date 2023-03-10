@@ -1,6 +1,5 @@
 package core.emr.api.document;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data

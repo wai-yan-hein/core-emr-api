@@ -1,11 +1,8 @@
 package core.emr.api.service;
 
-import core.emr.api.document.Doctor;
 import core.emr.api.document.OPDMedicalHis;
-import core.emr.api.repo.DoctorRepo;
 import core.emr.api.repo.OPDMedicalHisRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

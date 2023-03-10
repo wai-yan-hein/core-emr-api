@@ -1,6 +1,5 @@
 package core.emr.api.service;
 
-import core.emr.api.document.Doctor;
 import core.emr.api.document.OPD;
 import core.emr.api.repo.OPDRepo;
 import lombok.extern.slf4j.Slf4j;

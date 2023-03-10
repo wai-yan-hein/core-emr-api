@@ -1,27 +1,24 @@
 package core.emr.api.service;
 
-import core.emr.api.common.Util1;
 import core.emr.api.document.WHOICDData;
 import core.emr.api.repo.WHOICDRepo;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 @Service
 public class WHOICDServiceImpl implements WHOICDService {
     @Autowired
     WHOICDRepo whoicdRepo;
-    @Autowired
-    private Environment env;
     @Override
     public Mono<WHOICDData> save(WHOICDData whoicdData) {
         return whoicdRepo.save(whoicdData);
@@ -53,8 +50,6 @@ public class WHOICDServiceImpl implements WHOICDService {
             try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                  CSVParser csvParser = new CSVParser(fileReader,
                          CSVFormat.DEFAULT.withHeader());) {
-
-                List<WHOICDData> whoicdDataList = new ArrayList<WHOICDData>();
 
                 Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 

@@ -1,6 +1,5 @@
 package core.emr.api.controller;
 
-import core.emr.api.document.Doctor;
 import core.emr.api.document.OPDMedicalHis;
 import core.emr.api.service.OPDMedicalHisService;
 import org.springframework.beans.factory.annotation.Autowired;
