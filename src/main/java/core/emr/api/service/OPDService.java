@@ -6,6 +6,6 @@ import reactor.core.publisher.Mono;
 
 public interface OPDService {
     Mono<OPD> save(OPD doctor);
-    Mono<OPD> findById(String id);
+    Mono<OPD> findOPDById(String id);
     Flux<OPD> findAll();
 }

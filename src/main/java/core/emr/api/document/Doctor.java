@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Document("doctor")
+@Document
 public class Doctor {
     private String doctorId;
     private String firstName;

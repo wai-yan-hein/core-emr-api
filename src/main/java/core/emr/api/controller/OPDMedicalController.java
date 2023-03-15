@@ -34,7 +34,7 @@ public class OPDMedicalController {
     }
 
     @GetMapping(path = "/delete-opdMedicalHis")
-    public Mono<Void> deleteById(@RequestParam String opdMedicalHisId) {
-        return opdMedicalHisService.deleteById(opdMedicalHisId);
+    public Mono<?> deleteById(@RequestParam String opdMedicalHisId) {
+        return opdMedicalHisService.deleteOPDMedicalHisById(opdMedicalHisId);
     }
 }

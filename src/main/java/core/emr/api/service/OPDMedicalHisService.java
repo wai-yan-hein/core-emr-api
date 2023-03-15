@@ -9,6 +9,6 @@ public interface OPDMedicalHisService {
     Mono<OPDMedicalHis> findById(String id);
     Flux<OPDMedicalHis> findAll();
 
-    Mono<Void> deleteById(String id);
+    Mono<?> deleteOPDMedicalHisById(String id);
     Mono<Void> deleteAll();
 }

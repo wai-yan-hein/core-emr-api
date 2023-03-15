@@ -1,8 +1,10 @@
 package core.emr.api.service;
 
 import core.emr.api.document.OPDMedicalHis;
-import core.emr.api.repo.OPDMedicalHisRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -10,30 +12,32 @@ import reactor.core.publisher.Mono;
 @Service
 public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     @Autowired
-    private OPDMedicalHisRepo repo;
+    private ReactiveMongoTemplate template;
 
     @Override
     public Mono<OPDMedicalHis> save(OPDMedicalHis opdMedicalHis) {
-        return repo.save(opdMedicalHis);
+        return template.save(opdMedicalHis);
     }
 
     @Override
     public Mono<OPDMedicalHis> findById(String id) {
-        return repo.findById(id);
+        Query query = new Query(Criteria.where("_id").is(id));
+        return template.findById(query, OPDMedicalHis.class);
     }
 
     @Override
     public Flux<OPDMedicalHis> findAll() {
-        return repo.findAll();
+        return template.findAll(OPDMedicalHis.class);
     }
 
     @Override
-    public Mono<Void> deleteById(String id) {
-        return repo.deleteById(id);
+    public Mono<?> deleteOPDMedicalHisById(String id) {
+        Query query = new Query(Criteria.where("_id").is(id));
+        return template.remove(query, OPDMedicalHis.class);
     }
 
     @Override
     public Mono<Void> deleteAll() {
-        return repo.deleteAll();
+        return null;
     }
 }
