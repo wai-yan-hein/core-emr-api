@@ -71,8 +71,8 @@ public class MedTermsServiceImpl implements MedTermsService {
                 line = fileReader.readLine();
                 MedTerms medTerms = new MedTerms();
                 medTerms.setDesc(line);
-                save(medTerms).log().subscribe();
-//                medTermsList.add(medTerms);
+//                save(medTerms).log().subscribe();
+                medTermsList.add(medTerms);
             }
             template.insertAll(medTermsList).subscribe();
             log.info("Med Terms save completed.");
