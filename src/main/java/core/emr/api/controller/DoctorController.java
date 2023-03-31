@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/doctor")
+@CrossOrigin
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;

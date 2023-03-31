@@ -1,0 +1,12 @@
+package core.emr.api.service;
+
+import core.emr.api.document.VitalSign;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+public interface VitalSignService {
+    Mono<VitalSign> save(VitalSign vitalSign);
+    Mono<VitalSign> findById(String id);
+    Flux<VitalSign> findAll();
+    Mono<?> deleteVitalSignById(String id);
+}

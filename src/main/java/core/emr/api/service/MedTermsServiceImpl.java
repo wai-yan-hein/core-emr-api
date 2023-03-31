@@ -40,7 +40,7 @@ public class MedTermsServiceImpl implements MedTermsService {
 
     @Override
     public Flux<MedTerms> findByDesc(String desc) {
-        Criteria criteria = Criteria.where("desc").regex("^" + desc);
+        Criteria criteria = Criteria.where("desc").regex("^" + desc, "i");
         Query query = new Query(criteria);
         return template.find(query, MedTerms.class);
 //        Query query = new Query();

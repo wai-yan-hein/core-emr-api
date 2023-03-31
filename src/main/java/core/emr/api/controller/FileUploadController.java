@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.codec.multipart.FilePart;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,6 +15,7 @@ import java.io.InputStream;
 
 @RestController
 @RequestMapping("/uploadController")
+@CrossOrigin
 public class FileUploadController {
     @Autowired
     private MedTermsService medTermsService;

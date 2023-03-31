@@ -13,6 +13,7 @@ import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/autoComplete")
+@CrossOrigin
 public class AutoCompleteController {
     @Autowired
     MedTermsServiceImpl medTermsService;

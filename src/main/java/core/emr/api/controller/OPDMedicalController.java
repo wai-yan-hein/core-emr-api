@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/opdMedical")
+@CrossOrigin
 public class OPDMedicalController {
 
     @Autowired
