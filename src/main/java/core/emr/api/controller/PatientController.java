@@ -3,14 +3,19 @@ package core.emr.api.controller;
 import core.emr.api.document.VitalSign;
 import core.emr.api.service.VitalSignService;
 import core.emr.api.service.VitalSignServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @RestController
 @RequestMapping("/patient")
 @CrossOrigin
+@Slf4j
 public class PatientController {
 
     @Autowired
@@ -18,6 +23,10 @@ public class PatientController {
 
     @PostMapping(path = "/saveVitalSign")
     public Mono<VitalSign> saveVitalSign(@RequestBody VitalSign vitalSign) {
+        log.info("saveVitalSign : " + vitalSign);
+        if(vitalSign.getId() == null){
+            vitalSign.setCreatedDate(new Date());
+        }
         return vitalSignService.save(vitalSign);
     }
 
