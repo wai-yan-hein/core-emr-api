@@ -7,8 +7,9 @@ public class Treatment {
     private String group;
     private String subGroup;
     private String code;
-    private String desp;
+    private String desc;
     private String pattern;
+    private Integer days;
     private Integer qty;
     private Double price;
     private Double discount;
