@@ -30,9 +30,14 @@ public class PatientController {
         return vitalSignService.save(vitalSign);
     }
 
-    @PostMapping(path = "/findVitalSign")
+    @GetMapping(path = "/findVitalSign")
     public Mono<VitalSign> findVitalSign(@RequestParam String id) {
         return vitalSignService.findById(id);
+    }
+
+    @GetMapping(path = "/findByBookingId")
+    public Mono<VitalSign> findByBookingId(@RequestParam String bid) {
+        return vitalSignService.findByBookingId(bid);
     }
 
     @GetMapping(path = "getVitalSign")
@@ -40,7 +45,7 @@ public class PatientController {
         return vitalSignService.findAll();
     }
 
-    @PostMapping(path = "deleteVitalSign")
+    @GetMapping(path = "deleteVitalSign")
     public Mono<?> deleteVitalSignById(@RequestParam String id) {
         return vitalSignService.deleteVitalSignById(id);
     }

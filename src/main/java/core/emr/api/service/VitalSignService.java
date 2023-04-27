@@ -7,6 +7,7 @@ import reactor.core.publisher.Mono;
 public interface VitalSignService {
     Mono<VitalSign> save(VitalSign vitalSign);
     Mono<VitalSign> findById(String id);
+    Mono<VitalSign> findByBookingId(String bid);
     Flux<VitalSign> findAll();
     Mono<?> deleteVitalSignById(String id);
 }

@@ -25,6 +25,12 @@ public class VitalSignServiceImpl implements VitalSignService{
     }
 
     @Override
+    public Mono<VitalSign> findByBookingId(String bid) {
+        Query query = new Query(Criteria.where("bookingId").is(bid));
+        return template.findOne(query, VitalSign.class);
+    }
+
+    @Override
     public Flux<VitalSign> findAll() {
         return template.findAll(VitalSign.class);
     }
