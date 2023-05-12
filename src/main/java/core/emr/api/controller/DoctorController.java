@@ -13,9 +13,6 @@ import reactor.core.publisher.Mono;
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
-
-
-
     @GetMapping(path = "/get-number")
     public Flux<Integer> getNumber() {
         return Flux.range(0, 100);

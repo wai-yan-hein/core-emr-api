@@ -2,6 +2,7 @@ package core.emr.api.controller;
 
 import core.emr.api.service.MedTermsService;
 import core.emr.api.service.WHOICDService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 @RestController
 @RequestMapping("/uploadController")
 @CrossOrigin
+@Slf4j
 public class FileUploadController {
     @Autowired
     private MedTermsService medTermsService;
@@ -23,6 +25,7 @@ public class FileUploadController {
     private WHOICDService whoicdService;
     @PostMapping("/uploadCSV")
     public Mono<String> uploadCsvFile(@RequestPart("file") FilePart filePart) {
+        log.info("/uploadCSV");
         Flux<DataBuffer> dataBufferFlux = filePart.content();
         return DataBufferUtils.join(dataBufferFlux)
                 .flatMap(dataBuffer -> {
@@ -41,6 +44,7 @@ public class FileUploadController {
 
     @PostMapping("/uploadTXT")
     public Mono<String> uploadTxtFile(@RequestPart("file") FilePart filePart) {
+        log.info("/uploadTXT");
         Flux<DataBuffer> dataBufferFlux = filePart.content();
         return DataBufferUtils.join(dataBufferFlux)
                 .flatMap(dataBuffer -> {

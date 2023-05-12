@@ -11,9 +11,15 @@ public class Treatment {
     private String pattern;
     private Integer days;
     private Integer qty;
-    private Double price;
-    private Double discount;
-    private Double amount;
     private String remark;
-
+    private String relStr;
+    private Double fees;
+    private Double fees1;
+    private Double fees2;
+    private Double fees3;
+    private Double fees4;
+    private Double fees5;
+    private Double fees6;
+    private Boolean isPercent = Boolean.FALSE;
+    private Double serviceCost;
 }

@@ -32,21 +32,25 @@ public class PatientController {
 
     @GetMapping(path = "/findVitalSign")
     public Mono<VitalSign> findVitalSign(@RequestParam String id) {
+        log.info("/findVitalSign : id : " + id);
         return vitalSignService.findById(id);
     }
 
     @GetMapping(path = "/findByBookingId")
     public Mono<VitalSign> findByBookingId(@RequestParam String bid) {
+        log.info("/findByBookingId : bid : " + bid);
         return vitalSignService.findByBookingId(bid);
     }
 
-    @GetMapping(path = "getVitalSign")
+    @GetMapping(path = "/getVitalSign")
     public Flux<VitalSign> getVitalSign() {
+        log.info("/getVitalSign");
         return vitalSignService.findAll();
     }
 
-    @GetMapping(path = "deleteVitalSign")
+    @GetMapping(path = "/deleteVitalSign")
     public Mono<?> deleteVitalSignById(@RequestParam String id) {
+        log.info("/deleteVitalSign : id : " + id);
         return vitalSignService.deleteVitalSignById(id);
     }
 }
