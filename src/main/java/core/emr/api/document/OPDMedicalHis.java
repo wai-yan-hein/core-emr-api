@@ -22,6 +22,8 @@ public class OPDMedicalHis {
     private String drName;
     private Date reVisitDate; // date
     private String drNotes;
+    private Double cfFees;
+    private Boolean isFoc;
     private List<Examination> examinations;
     private List<Treatment> treatments;
     private List<KvDrNotes> kvDrNotes;

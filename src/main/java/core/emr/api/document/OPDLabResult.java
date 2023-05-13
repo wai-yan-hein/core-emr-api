@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document
 public class OPDLabResult {
-//    @Id
     String result_id;
     String service_id;
     String result_text;

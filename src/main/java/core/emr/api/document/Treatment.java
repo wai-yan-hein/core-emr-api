@@ -1,6 +1,7 @@
 package core.emr.api.document;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 @Data
 public class Treatment {
@@ -8,7 +9,7 @@ public class Treatment {
     private String subGroup;
     private String code;
     private String desc;
-    private String pattern;
+    private PharmacyPattern pattern;
     private Integer days;
     private Integer qty;
     private String remark;
@@ -22,4 +23,5 @@ public class Treatment {
     private Double fees6;
     private Boolean isPercent = Boolean.FALSE;
     private Double serviceCost;
+    private String itemUnit;
 }
