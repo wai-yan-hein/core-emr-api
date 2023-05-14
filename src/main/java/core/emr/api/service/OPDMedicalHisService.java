@@ -7,8 +7,8 @@ import reactor.core.publisher.Mono;
 public interface OPDMedicalHisService {
     Mono<OPDMedicalHis> save(OPDMedicalHis opdMedicalHis);
     Mono<OPDMedicalHis> findById(String id);
+    Mono<OPDMedicalHis> findByVisitId(String id);
     Flux<OPDMedicalHis> findAll();
-
     Mono<?> deleteOPDMedicalHisById(String id);
     Mono<Void> deleteAll();
 }
