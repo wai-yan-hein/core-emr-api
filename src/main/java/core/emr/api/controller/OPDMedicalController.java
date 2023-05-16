@@ -2,6 +2,7 @@ package core.emr.api.controller;
 
 import core.emr.api.document.OPDLabResult;
 import core.emr.api.document.OPDMedicalHis;
+import core.emr.api.document.OPDMedicalHisCashier;
 import core.emr.api.service.OPDLabResultService;
 import core.emr.api.service.OPDMedicalHisService;
 import lombok.extern.slf4j.Slf4j;
@@ -73,5 +74,17 @@ public class OPDMedicalController {
     public Mono<?> deleteOPDLabResultById(@RequestParam String opdLabResultId) {
         log.info("/delete-opdlabresult : opdLabResultId : " + opdLabResultId);
         return opdLabResultService.deleteOPDLabResultById(opdLabResultId);
+    }
+
+    @GetMapping(path = "/getOPDMedicalHisCashier")
+    public Mono<OPDMedicalHisCashier> getOPDMedicalHisCashier(@RequestParam String visitId){
+        log.info("/getOPDMedicalHisCashier : visitId : " + visitId);
+        return opdMedicalHisService.findByVisitId(visitId);
+    }
+
+    @PostMapping(path = "/save-opdMedicalHisCashier")
+    public Mono<OPDMedicalHisCashier> saveOPDMedHIsCashier(@RequestBody OPDMedicalHisCashier ohc){
+        log.info("/save-opdMedicalHisCashier");
+        return opdMedicalHisService.saveCashier(ohc);
     }
 }
