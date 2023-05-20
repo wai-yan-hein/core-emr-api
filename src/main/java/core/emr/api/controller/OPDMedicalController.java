@@ -44,6 +44,12 @@ public class OPDMedicalController {
         log.info("/find-opdMedicalHis : opdMedicalHisId : " + opdMedicalHisId);
         return opdMedicalHisService.findById(opdMedicalHisId);
     }
+    @GetMapping(path = "/find-opdMedicalHis-visitId")
+    public Mono<OPDMedicalHis> medicalFindByVisitId(@RequestParam String visitId) {
+        log.info("/find-opdMedicalHis : opdMedicalHisId : " + visitId);
+        return opdMedicalHisService.medicalFindByVisitId(visitId);
+    }
+    
 
     @GetMapping(path = "/deleteAll-opdMedicalHis")
     public Mono<Void> deleteAll() {
