@@ -10,7 +10,7 @@ public class Treatment {
     private String desc;
     private PharmacyPattern pattern;
     private Integer days;
-    private Integer qty;
+    private Float qty;
     private String remark;
     private String relStr;
     private Double fees;

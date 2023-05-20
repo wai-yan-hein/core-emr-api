@@ -33,6 +33,7 @@ public class OPDMedicalHisCashier {
     private Double taxAmt;
     private Double paid;
     private Double balance;
-    private List<Treatment> treatments;
+    private Integer maxUniqueId;
+    private List<TreatmentCashier> treatments;
     private List<KvDrNotes> kvDrNotes;
 }

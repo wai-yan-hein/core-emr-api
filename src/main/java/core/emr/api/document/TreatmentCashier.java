@@ -1,12 +1,16 @@
 package core.emr.api.document;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
 @Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class TreatmentCashier {
     private String group;
     private String subGroup;
@@ -30,4 +34,5 @@ public class TreatmentCashier {
     private Double serviceCost;
     private String itemUnit;
     private Double amount;
+    private Integer uniqueId;
 }
