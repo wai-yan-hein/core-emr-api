@@ -3,9 +3,6 @@
  * and open the template in the editor.
  */
 package core.emr.api.common;
-
-import lombok.extern.slf4j.Slf4j;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,7 +10,7 @@ import java.util.Date;
 /**
  * @author WSwe
  */
-@Slf4j
+
 public class Util1 {
     public static String isNull(String strValue, String value) {
         if (strValue == null) {

@@ -1,16 +1,15 @@
 package core.emr.api.controller;
 
+
 import core.emr.api.document.MedTerms;
-import core.emr.api.document.WHOICDData;
 import core.emr.api.service.MedTermsServiceImpl;
 import core.emr.api.service.WHOICDServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/autoComplete")
@@ -33,4 +32,11 @@ public class AutoCompleteController {
         log.info("/whoICDAutoComplete : icdCodeOrDesc : " + icdCodeOrDesc);
         return whoicdService.findByCodeAndDesceng(icdCodeOrDesc).take(20);
     }
+
+    @PostMapping("/savemed")
+    public Mono<?> save(@RequestBody MedTerms term) {
+        log.info("/whoICDAutoComplete : icdCodeOrDesc : " + term);
+        return medTermsService.save(term);
+    }
+
 }
