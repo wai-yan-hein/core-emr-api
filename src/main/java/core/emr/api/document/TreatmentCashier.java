@@ -1,9 +1,13 @@
 package core.emr.api.document;
 
+import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
-public class Treatment {
+@Builder
+public class TreatmentCashier {
     private String group;
     private String subGroup;
     private String code;
@@ -13,6 +17,7 @@ public class Treatment {
     private Integer qty;
     private String remark;
     private String relStr;
+    private LocalDate expDate;
     private Double fees;
     private Double fees1;
     private Double fees2;
@@ -21,6 +26,8 @@ public class Treatment {
     private Double fees5;
     private Double fees6;
     private Boolean isPercent = Boolean.FALSE;
+    private Boolean isFOC = Boolean.FALSE;
     private Double serviceCost;
     private String itemUnit;
+    private Double amount;
 }

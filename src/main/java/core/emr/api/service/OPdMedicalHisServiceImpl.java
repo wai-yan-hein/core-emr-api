@@ -48,6 +48,8 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
                     return chis;
                 }).single();
     }
+
+
     @Override
     public Flux<OPDMedicalHis> findAll() {
         return template.findAll(OPDMedicalHis.class);
