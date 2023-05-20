@@ -23,4 +23,20 @@ public class CVUtil {
             return value;
         }
     }
+
+    public static Double doubleNullZero(Double value){
+        if(value == null){
+            return 0d;
+        }else{
+            return value;
+        }
+    }
+
+    public static Float floatNullZero(Float value){
+        if(value == null){
+            return 0f;
+        }else{
+            return value;
+        }
+    }
 }

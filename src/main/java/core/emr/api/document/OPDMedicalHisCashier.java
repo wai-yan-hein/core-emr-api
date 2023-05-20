@@ -26,6 +26,14 @@ public class OPDMedicalHisCashier {
     private String drName;
     private LocalDate reVisitDate; // date
     private String drNotes;
-    private List<Treatment> treatments;
+    private Double vouTotal;
+    private Double discP;
+    private Double discAmt;
+    private Double taxP;
+    private Double taxAmt;
+    private Double paid;
+    private Double balance;
+    private Integer maxUniqueId;
+    private List<TreatmentCashier> treatments;
     private List<KvDrNotes> kvDrNotes;
 }
