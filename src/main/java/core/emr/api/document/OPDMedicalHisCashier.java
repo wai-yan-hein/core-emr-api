@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,13 +19,13 @@ public class OPDMedicalHisCashier {
     @Id
     private String id;
     private String visitId;
-    private LocalDateTime visitDate; // date time
+    private Date visitDate; // date time
     private String regNo;
     private String admissionNo;
     private String patientName;
     private String drId;
     private String drName;
-    private LocalDate reVisitDate; // date
+    private Date reVisitDate; // date
     private String drNotes;
     private Double vouTotal;
     private Double discP;

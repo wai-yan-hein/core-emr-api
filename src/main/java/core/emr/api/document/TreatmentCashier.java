@@ -18,7 +18,7 @@ public class TreatmentCashier {
     private String desc;
     private PharmacyPattern pattern;
     private Integer days;
-    private Integer qty;
+    private Float qty;
     private String remark;
     private String relStr;
     private LocalDate expDate;

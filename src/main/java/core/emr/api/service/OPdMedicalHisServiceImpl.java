@@ -13,11 +13,13 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
+import lombok.extern.slf4j.Slf4j;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     @Autowired
     private ReactiveMongoTemplate template;
@@ -33,25 +35,25 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
         return template.findById(query, OPDMedicalHis.class);
     }
 
-    public Mono<OPDMedicalHis> medicalFindByVisitId(String id){
+    public Mono<OPDMedicalHis> medicalFindByVisitId(String id) {
         Query query = new Query((Criteria.where("visitId").is(id)));
-        return template.find(query,OPDMedicalHis.class).single();
+        return template.findOne(query, OPDMedicalHis.class);
     }
 
     @Override
-    public Mono<OPDMedicalHisCashier> findByVisitId(String id){
+    public Mono<OPDMedicalHisCashier> findByVisitId(String id) {
         Query query = new Query((Criteria.where("visitId").is(id)));
         return template.find(query, OPDMedicalHis.class).single()
                 .map(his -> {
                     OPDMedicalHisCashier chis = OPDMedicalHisCashier.builder()
                             .visitId(his.getVisitId())
-                            .visitDate(CVUtil.convertToLocalDateTime(his.getVisitDate()))
+                            .visitDate(his.getVisitDate())
                             .regNo(his.getRegNo())
                             .admissionNo(CVUtil.getStrValue(his.getAdmissionNo(), null))
                             .patientName(his.getPatientName())
                             .drId(his.getDrId())
                             .drName(his.getDrName())
-                            .reVisitDate(CVUtil.convertToLocalDate(his.getReVisitDate()))
+                            .reVisitDate(his.getReVisitDate())
                             .drNotes(CVUtil.getStrValue(his.getDrNotes(), null))
                             .treatments(getCashierData(his.getTreatments()))
                             .kvDrNotes(his.getKvDrNotes())
@@ -60,11 +62,13 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
                 }).single();
     }
 
-    private List<TreatmentCashier> getCashierData(List<Treatment> list){
+    private List<TreatmentCashier> getCashierData(List<Treatment> list) {
         List<TreatmentCashier> listTC = list.stream().map(t -> {
             TreatmentCashier tc = new TreatmentCashier();
-            tc.setAmount(CVUtil.doubleNullZero(t.getFees())*CVUtil.floatNullZero(t.getQty()));
+            tc.setAmount(CVUtil.doubleNullZero(t.getFees()) * CVUtil.floatNullZero(t.getQty()));
             BeanUtils.copyProperties(t, tc);
+            log.info("treatment data old : " +t);
+            log.info("treatment data new : " +tc);
             return tc;
         }).collect(Collectors.toList());
 
@@ -72,6 +76,7 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
 
         return listTC;
     }
+
     @Override
     public Flux<OPDMedicalHis> findAll() {
         return template.findAll(OPDMedicalHis.class);
@@ -89,7 +94,7 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     }
 
     @Override
-    public Mono<OPDMedicalHisCashier> saveCashier(OPDMedicalHisCashier cashierHis){
+    public Mono<OPDMedicalHisCashier> saveCashier(OPDMedicalHisCashier cashierHis) {
         return template.save(cashierHis);
     }
 }
