@@ -61,7 +61,7 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     private List<TreatmentCashier> getCashierData(List<Treatment> list, OPDCFFeeService cfType, Double cfFees, Boolean isFoc){
         List<TreatmentCashier> listTC = list.stream().map(t -> {
             TreatmentCashier tc = new TreatmentCashier();
-            tc.setAmount(CVUtil.doubleNullZero(t.getFees()) * CVUtil.floatNullZero(t.getQty()));
+          //  tc.setAmount(CVUtil.doubleNullZero(t.getFees()) * CVUtil.floatNullZero(t.getQty()));
             BeanUtils.copyProperties(t, tc);
             log.info("treatment data old : " +t);
             log.info("treatment data new : " +tc);
@@ -73,32 +73,32 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
         /*if(!isFoc){
             amt = cfFees;
         }*/
-        TreatmentCashier tc = TreatmentCashier.builder()
-                .group(cfType.getGroupName())
-                .subGroup(cfType.getSubGroupName())
-                .code(cfType.getServiceId())
-                .desc(cfType.getServiceName())
-                .pattern(null)
-                .days(null)
-                .qty(1)
-                .remark(null)
-                .relStr(null)
-                .expDate(null)
-                .fees(cfFees)
-                .fees1(0d)
-                .fees2(0d)
-                .fees3(0d)
-                .fees4(0d)
-                .fees5(0d)
-                .fees6(0d)
-                .isPercent(Boolean.FALSE)
-                .isFOC(isFoc)
-                .serviceCost(0d)
-                .itemUnit(null)
-                .amount(amt)
-                .uniqueId(null)
-                .build();
-        listTC.add(tc);
+        // TreatmentCashier tc = TreatmentCashier.builder()
+        //         .group(cfType.getGroupName())
+        //         .subGroup(cfType.getSubGroupName())
+        //         .code(cfType.getServiceId())
+        //         .desc(cfType.getServiceName())
+        //         .pattern(null)
+        //         .days(null)
+        //         .qty(null)
+        //         .remark(null)
+        //         .relStr(null)
+        //         .expDate(null)
+        //         .fees(cfFees)
+        //         .fees1(0d)
+        //         .fees2(0d)
+        //         .fees3(0d)
+        //         .fees4(0d)
+        //         .fees5(0d)
+        //         .fees6(0d)
+        //         .isPercent(Boolean.FALSE)
+        //         .isFOC(isFoc)
+        //         .serviceCost(0d)
+        //         .itemUnit(null)
+        //         .amount(amt)
+        //         .uniqueId(null)
+        //         .build();
+        //listTC.add(tc);
         return listTC;
     }
 
