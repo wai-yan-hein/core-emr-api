@@ -3,10 +3,8 @@ package core.emr.api.controller;
 import core.emr.api.document.OPDLabResult;
 import core.emr.api.document.OPDMedicalHis;
 import core.emr.api.document.OPDMedicalHisCashier;
-import core.emr.api.document.OpdReVisitDate;
 import core.emr.api.service.OPDLabResultService;
 import core.emr.api.service.OPDMedicalHisService;
-import core.emr.api.service.OpdReVisitDateServcie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +17,11 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class OPDMedicalController {
 
-    @Autowired 
+    @Autowired
     OPDMedicalHisService opdMedicalHisService;
 
     @Autowired
     OPDLabResultService opdLabResultService;
-    @Autowired
-    OpdReVisitDateServcie opdReVisitService;
 
     @PostMapping(path = "/save-opdMedicalHis")
     public Mono<OPDMedicalHis> saveOPDMedicalHis(@RequestBody OPDMedicalHis d) {
@@ -33,23 +29,11 @@ public class OPDMedicalController {
         return opdMedicalHisService.save(d);
     }
 
-    @GetMapping(path = "/get-opdMedicalHis")
-    public Flux<OPDMedicalHis> findAll() {
-        log.info("/get-opdMedicalHis");
-        return opdMedicalHisService.findAll();
-    }
-
     @GetMapping(path = "/find-opdMedicalHis")
-    public Mono<OPDMedicalHis> findById(@RequestParam String opdMedicalHisId) {
-        log.info("/find-opdMedicalHis : opdMedicalHisId : " + opdMedicalHisId);
-        return opdMedicalHisService.findById(opdMedicalHisId);
-    }
-    @GetMapping(path = "/find-opdMedicalHis-visitId")
-    public Mono<OPDMedicalHis> medicalFindByVisitId(@RequestParam String visitId) {
+    public Mono<OPDMedicalHis> findById(@RequestParam String visitId) {
         log.info("/find-opdMedicalHis : opdMedicalHisId : " + visitId);
-        return opdMedicalHisService.medicalFindByVisitId(visitId);
+        return opdMedicalHisService.findByVisitIdMH(visitId);
     }
-    
 
     @GetMapping(path = "/deleteAll-opdMedicalHis")
     public Mono<Void> deleteAll() {
@@ -90,7 +74,7 @@ public class OPDMedicalController {
     @GetMapping(path = "/getOPDMedicalHisCashier")
     public Mono<OPDMedicalHisCashier> getOPDMedicalHisCashier(@RequestParam String visitId){
         log.info("/getOPDMedicalHisCashier : visitId : " + visitId);
-        return opdMedicalHisService.findByVisitId(visitId);
+        return opdMedicalHisService.findByVisitIdMHC(visitId);
     }
 
     @PostMapping(path = "/save-opdMedicalHisCashier")
@@ -98,33 +82,4 @@ public class OPDMedicalController {
         log.info("/save-opdMedicalHisCashier");
         return opdMedicalHisService.saveCashier(ohc);
     }
-
-
-    @PostMapping(path = "/save-opdReVisitDate")
-    public Mono<OpdReVisitDate> saveOPDRevisitDate(@RequestBody OpdReVisitDate d) {
-        log.info("/save-opdReVisitDate : d : " + d);
-        return opdReVisitService.save(d);
-    }
-
-    @GetMapping(path = "/get-opdReVisitDate")
-    public Flux<OpdReVisitDate> findAllRevisitDate() {
-        log.info("/get-opdReVisitDate");
-        return opdReVisitService.findAll();
-    }
-
-    @GetMapping(path = "/find-opdReVisitDate")
-    public Mono<OpdReVisitDate> findRevisitDateById(@RequestParam String RevisitDateId) {
-        log.info("/find-opdReVisitDate : opdReVisitDateId : " + RevisitDateId);
-        return opdReVisitService.findById(RevisitDateId);
-    }
-
-    @GetMapping(path = "/delete-opdReVisitDate")
-    public Mono<?> deleteRevisitDateById(@RequestParam String RevisitDateId) {
-        log.info("/delete-opdReVisitDate : opdReVisitDateId : " + RevisitDateId);
-        return opdReVisitService.deleteById(RevisitDateId);
-    }
-
-
-
-    
 }

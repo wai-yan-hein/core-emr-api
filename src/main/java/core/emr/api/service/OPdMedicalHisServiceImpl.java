@@ -1,9 +1,6 @@
 package core.emr.api.service;
 
-import core.emr.api.document.OPDMedicalHis;
-import core.emr.api.document.OPDMedicalHisCashier;
-import core.emr.api.document.Treatment;
-import core.emr.api.document.TreatmentCashier;
+import core.emr.api.document.*;
 import core.emr.api.util.CVUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +8,6 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import lombok.extern.slf4j.Slf4j;
 import java.util.Date;
@@ -30,9 +26,9 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     }
 
     @Override
-    public Mono<OPDMedicalHis> findById(String id) {
-        Query query = new Query(Criteria.where("_id").is(id));
-        return template.findById(query, OPDMedicalHis.class);
+    public Mono<OPDMedicalHis> findByVisitIdMH(String visitId) {
+        Query query = new Query(Criteria.where("visitId").is(visitId));
+        return template.find(query, OPDMedicalHis.class).single();
     }
 
     public Mono<OPDMedicalHis> medicalFindByVisitId(String id) {
@@ -41,8 +37,8 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     }
 
     @Override
-    public Mono<OPDMedicalHisCashier> findByVisitId(String id) {
-        Query query = new Query((Criteria.where("visitId").is(id)));
+    public Mono<OPDMedicalHisCashier> findByVisitIdMHC(String visitId){
+        Query query = new Query((Criteria.where("visitId").is(visitId)));
         return template.find(query, OPDMedicalHis.class).single()
                 .map(his -> {
                     OPDMedicalHisCashier chis = OPDMedicalHisCashier.builder()
@@ -55,14 +51,14 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
                             .drName(his.getDrName())
                             .reVisitDate(his.getReVisitDate())
                             .drNotes(CVUtil.getStrValue(his.getDrNotes(), null))
-                            .treatments(getCashierData(his.getTreatments()))
+                            .treatments(getCashierData(his.getTreatments(), his.getCfType(), his.getCfFees(), his.getIsFoc()))
                             .kvDrNotes(his.getKvDrNotes())
                             .build();
                     return chis;
-                }).single();
+                });
     }
 
-    private List<TreatmentCashier> getCashierData(List<Treatment> list) {
+    private List<TreatmentCashier> getCashierData(List<Treatment> list, OPDCFFeeService cfType, Double cfFees, Boolean isFoc){
         List<TreatmentCashier> listTC = list.stream().map(t -> {
             TreatmentCashier tc = new TreatmentCashier();
             tc.setAmount(CVUtil.doubleNullZero(t.getFees()) * CVUtil.floatNullZero(t.getQty()));
@@ -72,14 +68,38 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
             return tc;
         }).collect(Collectors.toList());
 
-        TreatmentCashier tc = new TreatmentCashier();
-
+        Double amt = 0d;
+        amt = cfFees;
+        /*if(!isFoc){
+            amt = cfFees;
+        }*/
+        TreatmentCashier tc = TreatmentCashier.builder()
+                .group(cfType.getGroupName())
+                .subGroup(cfType.getSubGroupName())
+                .code(cfType.getServiceId())
+                .desc(cfType.getServiceName())
+                .pattern(null)
+                .days(null)
+                .qty(1)
+                .remark(null)
+                .relStr(null)
+                .expDate(null)
+                .fees(cfFees)
+                .fees1(0d)
+                .fees2(0d)
+                .fees3(0d)
+                .fees4(0d)
+                .fees5(0d)
+                .fees6(0d)
+                .isPercent(Boolean.FALSE)
+                .isFOC(isFoc)
+                .serviceCost(0d)
+                .itemUnit(null)
+                .amount(amt)
+                .uniqueId(null)
+                .build();
+        listTC.add(tc);
         return listTC;
-    }
-
-    @Override
-    public Flux<OPDMedicalHis> findAll() {
-        return template.findAll(OPDMedicalHis.class);
     }
 
     @Override
