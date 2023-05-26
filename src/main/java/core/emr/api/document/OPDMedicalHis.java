@@ -1,5 +1,6 @@
 package core.emr.api.document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ public class OPDMedicalHis {
     @Id
     private String id;
     private String visitId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     private Date visitDate; // date time
     private String regNo;
     private String admissionNo;

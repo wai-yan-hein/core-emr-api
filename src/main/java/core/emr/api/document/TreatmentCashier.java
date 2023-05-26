@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Data
 @Builder
 @RequiredArgsConstructor
@@ -21,6 +23,7 @@ public class TreatmentCashier {
     private Float qty;
     private String remark;
     private String relStr;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd ")
     private LocalDate expDate;
     private Double fees;
     private Double fees1;

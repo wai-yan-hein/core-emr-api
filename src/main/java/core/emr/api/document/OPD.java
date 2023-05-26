@@ -1,5 +1,6 @@
 package core.emr.api.document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OPD {
     private String vouNo;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     private Date opdDate;
     private Patient patient;
     private Doctor doctor;
@@ -25,9 +27,11 @@ public class OPD {
     private float vouBalance;
     private String createdBy;
     private String createdName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     private Date createdDate;
     private String updatedBy;
     private String updatedName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     private Date updatedDate;
     private String currency;
     private String remark;

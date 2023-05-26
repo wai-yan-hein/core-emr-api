@@ -1,5 +1,6 @@
 package core.emr.api.document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -35,5 +36,6 @@ public class VitalSign {
     private String heightUnit;
     private Integer bmi;
     private String createdBy;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
     private Date createdDate; //date time
 }

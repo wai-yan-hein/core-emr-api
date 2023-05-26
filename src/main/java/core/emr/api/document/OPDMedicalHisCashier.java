@@ -1,8 +1,13 @@
 package core.emr.api.document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,22 +16,26 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document
-@Data
 @Builder
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Document
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class OPDMedicalHisCashier {
     @Id
     private String id;
     private String visitId;
-    private Date visitDate; // date time
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime visitDate; // date time
     private String regNo;
     private String admissionNo;
     private String patientName;
     private String drId;
     private String drName;
-    private Date reVisitDate; // date
-    private String drNotes;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime reVisitDate; // date
+    private String drNotes; 
     private Double vouTotal;
     private Double discP;
     private Double discAmt;
