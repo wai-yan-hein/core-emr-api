@@ -35,7 +35,7 @@ public class OPDMedicalHisCashier {
     private String drName;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime reVisitDate; // date
-    private String drNotes; 
+    private String drNotes;
     private Double vouTotal;
     private Double discP;
     private Double discAmt;
@@ -43,7 +43,17 @@ public class OPDMedicalHisCashier {
     private Double taxAmt;
     private Double paid;
     private Double balance;
-    private Integer maxUniqueId;
+
+    private String sessionId;
+    private String userId;
+    private String macId;
+    private String locId;
+    private String locName;
+    private String payTypeId;
+    private String payTypeName;
+    private String currId;
+    private String currName;
+
     private List<TreatmentCashier> treatments;
     private List<KvDrNotes> kvDrNotes;
 }
