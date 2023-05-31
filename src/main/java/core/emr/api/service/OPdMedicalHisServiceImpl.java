@@ -28,7 +28,7 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     @Override
     public Mono<OPDMedicalHis> findByVisitIdMH(String visitId) {
         Query query = new Query(Criteria.where("visitId").is(visitId));
-        return template.find(query, OPDMedicalHis.class).single();
+        return template.find(query, OPDMedicalHis.class).single().onErrorComplete();
     }
 
     public Mono<OPDMedicalHis> medicalFindByVisitId(String id) {
