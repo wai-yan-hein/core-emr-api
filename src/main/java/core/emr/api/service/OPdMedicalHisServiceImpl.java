@@ -70,35 +70,35 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
 
         Double amt = 0d;
         amt = cfFees;
-        /*if(!isFoc){
+        if(!isFoc){
             amt = cfFees;
-        }*/
-        // TreatmentCashier tc = TreatmentCashier.builder()
-        //         .group(cfType.getGroupName())
-        //         .subGroup(cfType.getSubGroupName())
-        //         .code(cfType.getServiceId())
-        //         .desc(cfType.getServiceName())
-        //         .pattern(null)
-        //         .days(null)
-        //         .qty(null)
-        //         .remark(null)
-        //         .relStr(null)
-        //         .expDate(null)
-        //         .fees(cfFees)
-        //         .fees1(0d)
-        //         .fees2(0d)
-        //         .fees3(0d)
-        //         .fees4(0d)
-        //         .fees5(0d)
-        //         .fees6(0d)
-        //         .isPercent(Boolean.FALSE)
-        //         .isFOC(isFoc)
-        //         .serviceCost(0d)
-        //         .itemUnit(null)
-        //         .amount(amt)
-        //         .uniqueId(null)
-        //         .build();
-        //listTC.add(tc);
+        }
+         TreatmentCashier tc = TreatmentCashier.builder()
+                 .group(cfType.getGroupName())
+                 .subGroup(cfType.getSubGroupName())
+                 .code(cfType.getServiceId())
+                 .desc(cfType.getServiceName())
+                 .pattern(null)
+                 .days(null)
+                 .qty(1f)
+                 .remark(null)
+                 .relStr(null)
+                 .expDate(null)
+                 .fees(cfFees)
+                 .fees1(0d)
+                 .fees2(0d)
+                 .fees3(0d)
+                 .fees4(0d)
+                 .fees5(0d)
+                 .fees6(0d)
+                 .isPercent(Boolean.FALSE)
+                 .isFOC(isFoc)
+                 .serviceCost(0d)
+                 .itemUnit(null)
+                 .amount(amt)
+                 .uniqueId(null)
+                 .build();
+        listTC.add(tc);
         return listTC;
     }
 
