@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import lombok.extern.slf4j.Slf4j;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,30 +73,11 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
             amt = cfFees;
         }
          TreatmentCashier tc = TreatmentCashier.builder()
-                 .group(cfType.getGroupName())
-                 .subGroup(cfType.getSubGroupName())
-                 .code(cfType.getServiceId())
-                 .desc(cfType.getServiceName())
-                 .pattern(null)
-                 .days(null)
-                 .qty(1f)
-                 .remark(null)
-                 .relStr(null)
-                 .expDate(null)
-                 .fees(cfFees)
-                 .fees1(0d)
-                 .fees2(0d)
-                 .fees3(0d)
-                 .fees4(0d)
-                 .fees5(0d)
-                 .fees6(0d)
-                 .isPercent(Boolean.FALSE)
-                 .isFOC(isFoc)
-                 .serviceCost(0d)
-                 .itemUnit(null)
-                 .amount(amt)
-                 .uniqueId(null)
-                 .build();
+                 .group(cfType.getGroupName()).subGroup(cfType.getSubGroupName()).code(cfType.getServiceId())
+                 .desc(cfType.getServiceName()).pattern(null).days(null).qty(1f).remark(null).relStr(null)
+                 .expDate(null).fees(cfFees).fees1(0d).fees2(0d).fees3(0d).fees4(0d).fees5(0d).fees6(0d)
+                 .isPercent(Boolean.FALSE).isFOC(isFoc).serviceCost(0d).itemUnit(null).amount(amt)
+                 .uniqueId(null).build();
         listTC.add(tc);
         return listTC;
     }
