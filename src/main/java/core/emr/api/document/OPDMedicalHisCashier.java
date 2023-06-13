@@ -18,7 +18,6 @@ import java.util.List;
 
 @Builder
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Document
 @RequiredArgsConstructor
 @AllArgsConstructor
