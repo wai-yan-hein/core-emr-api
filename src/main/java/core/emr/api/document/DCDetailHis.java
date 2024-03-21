@@ -1,2 +1,4 @@
-package core.emr.api.document;public class DCDetailHis {
+package core.emr.api.document;
+
+public class DCDetailHis {
 }

@@ -38,4 +38,5 @@ public class TreatmentCashier {
     private String itemUnit;
     private Double amount;
     private Integer uniqueId;
+    private Boolean checkItem;
 }

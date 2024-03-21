@@ -1,8 +1,7 @@
 package core.emr.api.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class CVUtil {
@@ -39,4 +38,15 @@ public class CVUtil {
             return value;
         }
     }
+
+    //from htut
+    // to iso date yyyy-MM-ddThh:mm:ss
+    public static Instant toISODate(String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
+        Instant isoDate = localDateTime.toInstant(ZoneOffset.UTC);
+        return isoDate;
+    }
+
+
 }

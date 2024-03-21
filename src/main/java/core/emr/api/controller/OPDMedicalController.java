@@ -29,6 +29,19 @@ public class OPDMedicalController {
         return opdMedicalHisService.save(d);
     }
 
+    //from htut
+    @PutMapping(path = "/updateOpdMedicalHisTreatItem")
+    public Mono<OPDMedicalHisCashier> updateOPDMedicalHisTreatItem(@RequestBody OPDMedicalHisCashier model) {
+        log.info("/update-opdMedicalHis trate item : d : " + model);
+        return opdMedicalHisService.updateCashierTreatment(model);
+    }
+
+    @GetMapping(path = "/searchOpdMedicalHis")
+    public Flux<OPDMedicalHisCashier> findOpdHisByFilter(@RequestParam String from, @RequestParam String to) {
+        log.info("/find-opdMedicalHis : opdMedicalHisFilter : " + from + "::" + to);
+        return opdMedicalHisService.findByFilterMHC(from, to);
+    }
+
     @GetMapping(path = "/find-opdMedicalHis")
     public Mono<OPDMedicalHis> findById(@RequestParam String visitId) {
         log.info("/find-opdMedicalHis : opdMedicalHisId : " + visitId);
@@ -71,14 +84,20 @@ public class OPDMedicalController {
         return opdLabResultService.deleteOPDLabResultById(opdLabResultId);
     }
 
+    @GetMapping(path = "/findOPDMedicalHisCashier")
+    public Flux<OPDMedicalHisCashier> getOPDMedicalHisCashier(@RequestParam String from, @RequestParam String to) {
+        //  log.info("/getOPDMedicalHisCashier : visitId : " + visitId);
+        return opdMedicalHisService.findByFilterMHC(from, to);
+    }
+
     @GetMapping(path = "/getOPDMedicalHisCashier")
-    public Mono<OPDMedicalHisCashier> getOPDMedicalHisCashier(@RequestParam String visitId){
+    public Mono<OPDMedicalHisCashier> getOPDMedicalHisCashier(@RequestParam String visitId) {
         log.info("/getOPDMedicalHisCashier : visitId : " + visitId);
         return opdMedicalHisService.findByVisitIdMHC(visitId);
     }
 
     @PostMapping(path = "/save-opdMedicalHisCashier")
-    public Mono<OPDMedicalHisCashier> saveOPDMedHIsCashier(@RequestBody OPDMedicalHisCashier ohc){
+    public Mono<OPDMedicalHisCashier> saveOPDMedHIsCashier(@RequestBody OPDMedicalHisCashier ohc) {
         log.info("/save-opdMedicalHisCashier");
         return opdMedicalHisService.saveCashier(ohc);
     }
