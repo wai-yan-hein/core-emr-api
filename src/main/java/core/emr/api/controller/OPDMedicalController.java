@@ -3,6 +3,7 @@ package core.emr.api.controller;
 import core.emr.api.document.OPDLabResult;
 import core.emr.api.document.OPDMedicalHis;
 import core.emr.api.document.OPDMedicalHisCashier;
+import core.emr.api.dto.VoucherDto;
 import core.emr.api.service.OPDLabResultService;
 import core.emr.api.service.OPDMedicalHisService;
 import lombok.extern.slf4j.Slf4j;
@@ -100,5 +101,11 @@ public class OPDMedicalController {
     public Mono<OPDMedicalHisCashier> saveOPDMedHIsCashier(@RequestBody OPDMedicalHisCashier ohc) {
         log.info("/save-opdMedicalHisCashier");
         return opdMedicalHisService.saveCashier(ohc);
+    }
+
+    @GetMapping(path = "/getOPDVoucher")
+    public Flux<VoucherDto> getOPDVoucher(@RequestParam String from, @RequestParam String to) {
+        log.info("/getOPDVoucher : visitId : " );
+        return opdMedicalHisService.getOpdVoucherByFilter(from,to);
     }
 }

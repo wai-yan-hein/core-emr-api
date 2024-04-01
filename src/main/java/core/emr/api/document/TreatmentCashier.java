@@ -8,12 +8,17 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Builder
+@Document
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class TreatmentCashier {
+    @Id
+    private String id;
     private String group;
     private String subGroup;
     private String code;

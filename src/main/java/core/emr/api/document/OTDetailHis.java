@@ -14,9 +14,12 @@ public class OTDetailHis {
     @Id
     private String id;
     private String otDetailId;
+    private String serviceGroup;
+    private String serviceSubGroup;
     private String serviceId;
-    private String qty;
-    private String price;
+    private String serviceName;
+    private Double qty;
+    private Double price;
     private Integer feesVersionId;
     private Integer uniqueId;
     private String chargeType;

@@ -2,6 +2,7 @@ package core.emr.api.service;
 
 import core.emr.api.document.OPDMedicalHis;
 import core.emr.api.document.OPDMedicalHisCashier;
+import core.emr.api.dto.VoucherDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,4 +19,6 @@ public interface OPDMedicalHisService {
     Mono<?> deleteOPDMedicalHisById(String id);
     Mono<Void> deleteAll();
     Mono<OPDMedicalHisCashier> saveCashier(OPDMedicalHisCashier cashierHis);
+
+    Flux<VoucherDto> getOpdVoucherByFilter(String from, String to);
 }

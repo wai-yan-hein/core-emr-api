@@ -1,6 +1,7 @@
 package core.emr.api.service;
 
 import core.emr.api.document.*;
+import core.emr.api.dto.VoucherDto;
 import core.emr.api.util.CVUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,6 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
         Query query = new Query((Criteria.where("visitId").is(id)));
         return template.findOne(query, OPDMedicalHis.class);
     }
-
 
     //from htut
     @Override
@@ -124,6 +124,7 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
         return template.save(cashierHis);
     }
 
+
     //from htut
     //save treatment of opd cashier
     @Override
@@ -135,5 +136,17 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
         return template.updateFirst(query,update, OPDMedicalHisCashier.class)
                 .flatMap(result -> Mono.just(model));
     }
+
+    @Override
+    public Flux<VoucherDto> getOpdVoucherByFilter(String from, String to) {
+        Query query = new Query(Criteria.where("visitDate").gte(CVUtil.toISODate(from)).lte(CVUtil.toISODate(to)));
+        log.info("Query : " + query);
+        return template.find(query, OPDMedicalHisCashier.class)
+                .map(his ->{
+                    OPDMedicalHisCashier OHC=new OPDMedicalHisCashier();
+                    return OHC.toVouDto(his);
+                });
+    }
+
 
 }
