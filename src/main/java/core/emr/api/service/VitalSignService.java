@@ -10,4 +10,6 @@ public interface VitalSignService {
     Mono<VitalSign> findByBookingId(String bid);
     Flux<VitalSign> findAll();
     Mono<?> deleteVitalSignById(String id);
+    Mono<VitalSign> findByRegNo(String regNo);
+    Flux<VitalSign> findByFilter(String from,String to,String regNo);
 }

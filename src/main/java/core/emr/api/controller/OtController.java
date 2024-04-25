@@ -19,7 +19,6 @@ public class OtController {
         return otService.getOtVoucher(from, to, "");
     }
 
-
     @PostMapping("/saveOtVoucher")
     public Mono<OTHis> saveOtVoucher(@RequestBody OTHis model) {
         return otService.saveOtVoucher(model);

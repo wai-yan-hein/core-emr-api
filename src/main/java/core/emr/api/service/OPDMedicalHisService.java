@@ -21,4 +21,6 @@ public interface OPDMedicalHisService {
     Mono<OPDMedicalHisCashier> saveCashier(OPDMedicalHisCashier cashierHis);
 
     Flux<VoucherDto> getOpdVoucherByFilter(String from, String to);
+
+    Flux<VoucherDto> getOpdVoucherByRegNo(String from, String to,String regNo);
 }

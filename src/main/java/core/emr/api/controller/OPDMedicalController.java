@@ -4,8 +4,11 @@ import core.emr.api.document.OPDLabResult;
 import core.emr.api.document.OPDMedicalHis;
 import core.emr.api.document.OPDMedicalHisCashier;
 import core.emr.api.dto.VoucherDto;
+import core.emr.api.service.DcService;
 import core.emr.api.service.OPDLabResultService;
 import core.emr.api.service.OPDMedicalHisService;
+import core.emr.api.service.OTService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/opdMedical")
 @CrossOrigin
 @Slf4j
+@RequiredArgsConstructor
 public class OPDMedicalController {
 
     @Autowired
@@ -23,6 +27,10 @@ public class OPDMedicalController {
 
     @Autowired
     OPDLabResultService opdLabResultService;
+
+    private final OTService otService;
+
+    private final DcService dcService;
 
     @PostMapping(path = "/save-opdMedicalHis")
     public Mono<OPDMedicalHis> saveOPDMedicalHis(@RequestBody OPDMedicalHis d) {
@@ -105,7 +113,18 @@ public class OPDMedicalController {
 
     @GetMapping(path = "/getOPDVoucher")
     public Flux<VoucherDto> getOPDVoucher(@RequestParam String from, @RequestParam String to) {
-        log.info("/getOPDVoucher : visitId : " );
-        return opdMedicalHisService.getOpdVoucherByFilter(from,to);
+        log.info("/getOPDVoucher : visitId : ");
+        return opdMedicalHisService.getOpdVoucherByFilter(from, to);
+    }
+
+    @GetMapping(path = "/getVouchers")
+    public Flux<VoucherDto> getVouchers(@RequestParam String from, @RequestParam String to, @RequestParam String regNo) {
+//        Flux<Integer> flux1 = Flux.just(1, 2, 3, 4, 5);
+//        Flux<Integer> flux2 = Flux.just(6, 7, 8, 9, 10);
+//        return Flux.concat(flux1, flux2);
+        Flux<VoucherDto> opdVoucher = opdMedicalHisService.getOpdVoucherByRegNo(from, to, regNo);
+        Flux<VoucherDto> otVoucher = otService.getOtVoucherByRegNo(from, to, regNo);
+        Flux<VoucherDto> dcVoucher = dcService.getDcVoucherByRegNo(from, to, regNo);
+        return Flux.concat( opdVoucher,otVoucher,dcVoucher);
     }
 }

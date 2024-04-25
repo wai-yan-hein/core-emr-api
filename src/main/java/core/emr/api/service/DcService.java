@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class DcService {
     private final ReactiveMongoTemplate template;
 
-    public Mono<DcHis> saveDcVoucher(DcHis model){
+    public Mono<DcHis> saveDcVoucher(DcHis model) {
         model.setCreatedDate(LocalDateTime.now());
         model.setUpdatedDate(LocalDateTime.now());
         return template.insert(model);
@@ -29,10 +29,26 @@ public class DcService {
 
     public Flux<VoucherDto> getDcVoucher(String from, String to, String vouNo) {
         Query query = new Query(Criteria.where("dcDate").gte(CVUtil.toISODate(from)).lte(CVUtil.toISODate(to)));
-        log.info("query :"+query);
+        log.info("query :" + query);
         return template.find(query, DcHis.class)
-                .map(his->{
-                    DcHis ot=new DcHis();
+                .map(his -> {
+                    DcHis ot = new DcHis();
+                    return ot.toVouDto(his);
+                });
+    }
+
+    public Flux<VoucherDto> getDcVoucherByRegNo(String from, String to, String regNo) {
+        Query query = new Query(Criteria
+                .where("dcDate").gte(CVUtil.toISODate(from)).lte(CVUtil.toISODate(to))
+                .and("patientId").is(regNo)
+        );
+//        Query query = new Query(Criteria
+//                .where("patientId").is(regNo)
+//        );
+        log.info("query :" + query);
+        return template.find(query, DcHis.class)
+                .map(his -> {
+                    DcHis ot = new DcHis();
                     return ot.toVouDto(his);
                 });
     }

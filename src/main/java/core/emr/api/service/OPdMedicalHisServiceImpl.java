@@ -131,9 +131,9 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
     public Mono<OPDMedicalHisCashier> updateCashierTreatment(OPDMedicalHisCashier model) {
         Query query = new Query(Criteria.where("_id").is(model.getId())); // Assuming "_id" is your document's identifier field
         Update update = new Update().set("treatments", model.getTreatments());
-        log.info("query :"+query);
-        log.info("update :"+update);
-        return template.updateFirst(query,update, OPDMedicalHisCashier.class)
+        log.info("query :" + query);
+        log.info("update :" + update);
+        return template.updateFirst(query, update, OPDMedicalHisCashier.class)
                 .flatMap(result -> Mono.just(model));
     }
 
@@ -142,8 +142,25 @@ public class OPdMedicalHisServiceImpl implements OPDMedicalHisService {
         Query query = new Query(Criteria.where("visitDate").gte(CVUtil.toISODate(from)).lte(CVUtil.toISODate(to)));
         log.info("Query : " + query);
         return template.find(query, OPDMedicalHisCashier.class)
-                .map(his ->{
-                    OPDMedicalHisCashier OHC=new OPDMedicalHisCashier();
+                .map(his -> {
+                    OPDMedicalHisCashier OHC = new OPDMedicalHisCashier();
+                    return OHC.toVouDto(his);
+                });
+    }
+
+    @Override
+    public Flux<VoucherDto> getOpdVoucherByRegNo(String from, String to, String regNo) {
+        Query query = new Query(Criteria
+                .where("visitDate").gte(CVUtil.toISODate(from)).lte(CVUtil.toISODate(to))
+                .and("regNo").is(regNo)
+        );
+//        Query query = new Query(Criteria
+//                .where("regNo").is(regNo)
+//        );
+        log.info("Query : " + query);
+        return template.find(query, OPDMedicalHisCashier.class)
+                .map(his -> {
+                    OPDMedicalHisCashier OHC = new OPDMedicalHisCashier();
                     return OHC.toVouDto(his);
                 });
     }

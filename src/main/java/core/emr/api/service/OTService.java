@@ -23,10 +23,26 @@ public class OTService {
 
     public Flux<VoucherDto> getOtVoucher(String from, String to, String vouNo) {
         Query query = new Query(Criteria.where("otDate").gte(CVUtil.toISODate(from)).lte(CVUtil.toISODate(to)));
-        log.info("query :"+query);
+        log.info("query :" + query);
         return template.find(query, OTHis.class)
-                .map(his->{
-                    OTHis ot=new OTHis();
+                .map(his -> {
+                    OTHis ot = new OTHis();
+                    return ot.toVouDto(his);
+                });
+    }
+
+    public Flux<VoucherDto> getOtVoucherByRegNo(String from, String to, String regNo) {
+        Query query = new Query(Criteria
+                .where("otDate").gte(CVUtil.toISODate(from)).lte(CVUtil.toISODate(to))
+                .and("patientId").is(regNo)
+        );
+//        Query query = new Query(Criteria
+//                .where("patientId").is(regNo)
+//        );
+        log.info("query :" + query);
+        return template.find(query, OTHis.class)
+                .map(his -> {
+                    OTHis ot = new OTHis();
                     return ot.toVouDto(his);
                 });
     }

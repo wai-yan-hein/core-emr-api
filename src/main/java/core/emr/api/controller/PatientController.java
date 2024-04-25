@@ -24,7 +24,7 @@ public class PatientController {
     @PostMapping(path = "/saveVitalSign")
     public Mono<VitalSign> saveVitalSign(@RequestBody VitalSign vitalSign) {
         log.info("saveVitalSign : " + vitalSign);
-        if(vitalSign.getId() == null){
+        if (vitalSign.getId() == null) {
             vitalSign.setCreatedDate(new Date());
         }
         return vitalSignService.save(vitalSign);
@@ -36,10 +36,22 @@ public class PatientController {
         return vitalSignService.findById(id);
     }
 
-    @GetMapping(path = "/findByBookingId")
+    @GetMapping(path = "/findVitalByBookingId")
     public Mono<VitalSign> findByBookingId(@RequestParam String bid) {
         log.info("/findByBookingId : bid : " + bid);
         return vitalSignService.findByBookingId(bid);
+    }
+
+    @GetMapping(path = "/findVitalByFilter")
+    public Flux<VitalSign> findByFilter(@RequestParam String from, @RequestParam String to, @RequestParam String regNo) {
+        log.info("/findByFilter : regNo : " + regNo);
+        return vitalSignService.findByFilter(from,to,regNo);
+    }
+
+    @GetMapping(path = "/findVitalByRegNo")
+    public Mono<VitalSign> findByRegNo(@RequestParam String regNo) {
+        log.info("/findByregNo : regNo : " + regNo);
+        return vitalSignService.findByRegNo(regNo);
     }
 
     @GetMapping(path = "/getVitalSign")
