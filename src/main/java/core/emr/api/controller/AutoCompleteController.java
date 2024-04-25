@@ -1,33 +1,42 @@
 package core.emr.api.controller;
 
+
 import core.emr.api.document.MedTerms;
-import core.emr.api.document.WHOICDData;
-import core.emr.api.repo.MedTermsRepo;
-import core.emr.api.repo.WHOICDRepo;
+import core.emr.api.service.MedTermsServiceImpl;
+import core.emr.api.service.WHOICDServiceImpl;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/autoComplete")
+@CrossOrigin
+@Slf4j
 public class AutoCompleteController {
-    private final MedTermsRepo medTermsRepo;
-    private final WHOICDRepo whoicdRepo;
-    public AutoCompleteController(MedTermsRepo medTermsRepo, WHOICDRepo whoicdRepo) {
-        this.medTermsRepo = medTermsRepo;
-        this.whoicdRepo = whoicdRepo;
-    }
+    @Autowired
+    MedTermsServiceImpl medTermsService;
+    @Autowired
+    WHOICDServiceImpl whoicdService;
 
     @GetMapping("/medTermsAutoComplete")
-    public Flux<String> medTermsAutoComplete(@RequestParam String input) {
-        return medTermsRepo.findByDescStartingWithIgnoreCase(input)
-                .map(MedTerms::getDesc)
-                .log();
+    public Flux<?> medTermsAutoComplete(@RequestParam String medDesc) {
+        log.info("/medTermsAutoComplete : medDesc : " + medDesc);
+        return medTermsService.findByDesc(medDesc).take(20);
     }
 
-    @GetMapping("/whoIcdAutoComplete")
-    public Flux<String> whoIcdAutoComplete(@RequestParam String input) {
-        return whoicdRepo.findByCodeOrDescEngStartingWithIgnoreCase(input, input)
-                .map(WHOICDData::getDescEng)
-                .log();
+    @GetMapping("/whoICDAutoComplete")
+    public Flux<?> whoIcdAutoComplete(@RequestParam String icdCodeOrDesc) {
+        log.info("/whoICDAutoComplete : icdCodeOrDesc : " + icdCodeOrDesc);
+        return whoicdService.findByCodeAndDesceng(icdCodeOrDesc).take(20);
     }
+
+    @PostMapping("/savemed")
+    public Mono<?> save(@RequestBody MedTerms term) {
+        log.info("/whoICDAutoComplete : icdCodeOrDesc : " + term);
+        return medTermsService.save(term);
+    }
+
 }

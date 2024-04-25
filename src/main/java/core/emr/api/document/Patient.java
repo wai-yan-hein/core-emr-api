@@ -1,6 +1,9 @@
 package core.emr.api.document;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
@@ -8,7 +11,9 @@ import java.util.Date;
 public class Patient {
     private String patientNo;
     private String patientName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd ")
     private Date regDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd ")
     private Date dob;
     private Gender gender;
     private String nrc;

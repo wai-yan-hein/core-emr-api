@@ -13,7 +13,7 @@ public interface MedTermsService {
     Flux<MedTerms> findByDesc(String desc);
     Flux<MedTerms> findAll();
 
-    Mono<MedTerms> delete();
+    Mono<?> deleteMedTermsById(String id);
 
     void saveMedTerms(InputStream file);
 }

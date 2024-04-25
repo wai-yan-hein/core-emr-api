@@ -2,11 +2,12 @@ package core.emr.api.document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Document("doctor")
+@Document
 public class Doctor {
     private String doctorId;
     private String firstName;

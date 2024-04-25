@@ -13,7 +13,7 @@ public interface WHOICDService {
     Flux<WHOICDData> findByCodeAndDesceng(String desc);
     Flux<WHOICDData> findAll();
 
-    Mono<WHOICDData> delete();
+    Mono<?> deleteWHOICDDataById(String id);
 
     void saveWHOICDData(InputStream file);
 }

@@ -8,6 +8,5 @@ public interface DoctorService {
     Mono<Doctor> save(Doctor doctor);
     Mono<Doctor> findById(String id);
     Flux<Doctor> findAll();
-
-    Mono<Doctor> delete();
+    Mono<?> deleteDoctorById(String id);
 }
